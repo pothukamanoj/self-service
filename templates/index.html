@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Select Modules</title>
+    <title>Request Terraform Code</title>
 </head>
 <body>
-    <h1>Select Azure Resources</h1>
+    <h1>Request Terraform Code</h1>
     <form method="POST">
-        {% for module, details in modules.items() %}
-            <input type="checkbox" name="modules" value="{{ module }}"> {{ module.replace('_', ' ').title() }}<br>
-        {% endfor %}
-        <br>
-        <button type="submit">Next</button>
+        <label for="resource_request">Enter the resource you want to create (e.g., "storage account", "resource group"):</label><br><br>
+        <input type="text" name="resource_request" id="resource_request" required><br><br>
+        <button type="submit">Submit</button>
     </form>
+
+    {% if error %}
+        <p style="color:red;">{{ error }}</p>
+    {% endif %}
 </body>
 </html>

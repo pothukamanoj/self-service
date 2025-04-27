@@ -1,28 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Fill Resource Details</title>
-</head>
-<body>
-    <h1>Enter Details</h1>
-    <form method="POST" action="/generate">
-        <input type="hidden" name="selected_modules" value="{{ modules|join(',') }}">
-        <label for="use_existing">Use Existing Modules</label>
-        <input type="checkbox" name="use_existing" {% if use_existing %}checked{% endif %}><br><br>
-        
-        {% for module in modules %}
-            <h3>{{ module.replace('_', ' ').title() }}</h3>
-            {% for field in available_modules[module]["required"] %}
-                <label>{{ field["name"].replace('_', ' ').title() }} (Required):</label>
-                <input type="text" name="{{ module }}_{{ field["name"] }}"><br>
-            {% endfor %}
-            {% for field in available_modules[module]["optional"] %}
-                <label>{{ field["name"].replace('_', ' ').title() }} (Optional):</label>
-                <input type="text" name="{{ module }}_{{ field["name"] }}"><br>
-            {% endfor %}
-            <br>
-        {% endfor %}
-        <button type="submit">Generate Terraform Code</button>
-    </form>
-</body>
-</html>
+<form method="POST" action="/generate">
+    <input type="hidden" name="selected_resource" value="{{ resource }}">
+
+    <label for="use_existing">Use Existing Modules</label>
+    <input type="checkbox" name="use_existing"><br><br>
+    
+    {% for field in modules[resource]["required"] %}
+        <label>{{ field["name"].replace('_', ' ').title() }} (Required):</label>
+        <input type="text" name="{{ resource }}_{{ field["name"] }}"><br>
+    {% endfor %}
+    {% for field in modules[resource]["optional"] %}
+        <label>{{ field["name"].replace('_', ' ').title() }} (Optional):</label>
+        <input type="text" name="{{ resource }}_{{ field["name"] }}"><br>
+    {% endfor %}
+    <br>
+    <button type="submit">Generate Terraform Code</button>
+</form>
