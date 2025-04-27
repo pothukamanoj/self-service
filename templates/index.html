@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Select Modules</title>
+</head>
+<body>
+    <h1>Select Azure Resources</h1>
+    <form method="POST">
+        {% for module, details in modules.items() %}
+            <input type="checkbox" name="modules" value="{{ module }}"> {{ module.replace('_', ' ').title() }}<br>
+        {% endfor %}
+        <br>
+        <button type="submit">Next</button>
+    </form>
+</body>
+</html>
